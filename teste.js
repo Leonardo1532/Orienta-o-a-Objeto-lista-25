@@ -10,22 +10,7 @@ metros e calcula o tempo em segundos para percorrer essa distância. Use a
 seguinte fórmula para o cálculo: resultado = distância / (Velocidade Máxima /
 Aceleração). A função deve retornar esse resultado.
 
-3. Crie alguns objetos da classe Carro e adicione-os em um array
-
-4. Crie uma classe Corrida com as seguintes propriedades:
-● Nome - nome do local da corrida;
-● Tipo - uma corrida pode ser Fórmula 1, Stock Car, Rally, etc;
-● Distância - o total em metros da corrida;
-● Vencedor - qual a equipe que ganhou a corrida;
-
-5. Adicione na classe Corrida um método que verifica qual foi o carro que completou a
-corrida em menor tempo, para isso utilize o método criado na classe carro. Salve o
-nome da equipe que fez o menor tempo na propriedade “Vencedor”.
-
-6. Adicione na classe Corrida um método que exibe na tela quem é o vencedor da
-corrida.
-
-7. Crie um objeto da classe Corrida e chame seus métodos.
+3. Crie alguns objetos da classe Carro e adicione-os em um array.
 */
 
 class Carro {
@@ -33,10 +18,18 @@ class Carro {
     potencias = []
     velocidadesMaximas = []
     aceleracoes = []
-    distanciasEmMetros = 500
 
-    tempoParaPercorrerDistancia(distanciaEmMetros){
-        let tempoEmSegundos = distanciaEmMetros / (this.velocidadesMaximas / this.aceleracoes)
+
+    tempoParaPercorrerDistancia(distanciaEmMetros) {
+
+        let tempoEmSegundosArray = []
+
+        for (let contador = 0; contador < 3; contador++) {
+
+            let tempoEmSegundos = distanciaEmMetros / (this.velocidadesMaximas[contador] / this.aceleracoes[contador])
+            tempoEmSegundosArray.push(tempoEmSegundos)
+            return tempoEmSegundosArray
+        }
     }
 }
 
@@ -56,3 +49,51 @@ carroCorrida.nomes[2] = "McLaren"
 carroCorrida.potencias[2] = 710
 carroCorrida.velocidadesMaximas[2] = 400
 carroCorrida.aceleracoes[2] = 2.3
+
+/*
+4. Crie uma classe Corrida com as seguintes propriedades:
+● Nome - nome do local da corrida;
+● Tipo - uma corrida pode ser Fórmula 1, Stock Car, Rally, etc;
+● Distância - o total em metros da corrida;
+● Vencedor - qual a equipe que ganhou a corrida;
+
+5. Adicione na classe Corrida um método que verifica qual foi o carro que completou a
+corrida em menor tempo, para isso utilize o método criado na classe carro. Salve o
+nome da equipe que fez o menor tempo na propriedade “Vencedor”.
+
+6. Adicione na classe Corrida um método que exibe na tela quem é o vencedor da
+corrida.
+
+7. Crie um objeto da classe Corrida e chame seus métodos
+*/
+
+class Corrida {
+    nome
+    tipo
+    vencedor
+    distanciaEmMetros
+
+
+    carroVencedor(carroCorrida) {
+
+        let menorTempo = 1000
+        let tempoEmSegundos = carroCorrida.tempoParaPercorrerDistancia(this.distanciaEmMetros)
+        for (let contador = 0; contador < 3; contador++) {
+
+            if (menorTempo > tempoEmSegundos[contador]) {
+                menorTempo = tempoEmSegundos[contador]
+                this.vencedor = carroCorrida.nomes[contador]
+            }
+        }
+        return this.vencedor
+    }
+    ExibirVencedor() {
+        console.log("O vencedor foi: " + this.vencedor)
+    }
+
+}
+let pistaDeCorrida = new Corrida()
+
+pistaDeCorrida.nome = "Olimpo"
+pistaDeCorrida.tipo = "Stock Car"
+pistaDeCorrida.distanciaEmMetros = 4000
